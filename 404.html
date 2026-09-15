@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course — Marsed Leti</title>
+
+<!--
+  WHY THIS FILE EXISTS
+  ---------------------------------------------------------------------------
+  GitHub Pages is a static host: there is no real folder at /academic/CE121,
+  so a normal request for it 404s. What this file does is turn that 404 into
+  the right page. GitHub Pages serves the BODY of this file for any URL that
+  doesn't match a real path, but the browser's address bar keeps showing the
+  URL the visitor actually typed — so /academic/CE121 stays /academic/CE121,
+  it just quietly renders using the same script that /academic/course.html
+  uses, reading the course code from the URL instead of a query string.
+
+  If the mistyped/unknown URL isn't under /academic/ at all, this sends the
+  visitor back to the homepage instead of showing a raw 404.
+-->
+<script>
+  (function(){
+    var path = location.pathname.replace(/\/+$/, '');
+    if(path.indexOf('/academic') !== 0){
+      location.replace('/');
+    }
+  })();
+</script>
+
+<link rel="stylesheet" href="/academic/assets/style.css">
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/academic/index.html" class="brand">
+      <span class="brand-mark"></span>
+      <span>Marsed Leti<span class="phd">, PhD</span><small>Dept. of Civil Engineering</small></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="/academic/index.html">Home</a>
+      <a href="https://sites.google.com/view/etriplea/home" target="_blank" rel="noopener">EAAA</a>
+      <a href="/academic/cv.html">CV</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+      <a href="/academic/index.html">Home</a>
+      <a href="https://sites.google.com/view/etriplea/home" target="_blank" rel="noopener">EAAA</a>
+      <a href="/academic/cv.html">CV</a>
+  </div>
+</nav>
+
+<!-- Filled in at load time from the course spreadsheet (assets/courses.js),
+     using the course code found at the end of the current URL. -->
+<section class="course-page" id="coursePage">
+  <a href="/academic/index.html#courses-section" class="back-link">&larr; Back to courses</a>
+  <div class="cp-head"><h1>Loading…</h1></div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="fbrand">Marsed Leti, PhD</div>
+      <div>Department of Civil Engineering, Epoka University</div>
+    </div>
+    <div>
+      <div><a href="mailto:mleti@epoka.edu.al">mleti@epoka.edu.al</a></div>
+      <div style="margin-top:8px;">Rinas, km 12, Tiranë, Albania</div>
+    </div>
+  </div>
+</footer>
+
+<script src="/academic/assets/nav.js"></script>
+<script src="/academic/assets/courses.js"></script>
+<script src="/academic/assets/course-render.js"></script>
+<script src="/academic/assets/study-widget.js"></script>
+</body>
+</html>

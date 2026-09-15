@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marsed Leti - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #050203;
+      --accent-red: #8b001a;
+      --bright-red: #e60033;
+      --panel-bg: rgba(18, 8, 12, 0.85);
+      --panel-border: rgba(255, 255, 255, 0.1);
+      --text-muted: #8a7c80;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated Canvas Background */
+    #bg-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Top Left Status Light */
+    .top-left-status {
+      position: absolute;
+      top: 2rem;
+      left: 2.5rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--bright-red) 30%, rgba(230, 0, 51, 0.2) 100%);
+      box-shadow: 0 0 15px var(--bright-red);
+      z-index: 10;
+    }
+
+    /* Hero Section */
+    .hero-container {
+      position: absolute;
+      top: 28%;
+      left: 8%;
+      z-index: 10;
+      max-width: 500px;
+    }
+
+    .sub-url {
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .main-title {
+      font-size: 5.5rem;
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .main-title .first-line {
+      color: #ffffff;
+      display: block;
+    }
+
+    .main-title .second-line {
+      color: rgba(180, 20, 40, 0.75);
+      display: block;
+    }
+
+    .hero-desc {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: #b0a3a6;
+      line-height: 1.5;
+      font-weight: 300;
+      max-width: 380px;
+    }
+
+    /* Action Buttons */
+    .hero-actions {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .btn-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(20, 10, 15, 0.6);
+      border: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-icon:hover {
+      background: rgba(230, 0, 51, 0.2);
+      border-color: var(--bright-red);
+      transform: scale(1.05);
+    }
+
+    .btn-studio {
+      padding: 0.85rem 2rem;
+      border-radius: 30px;
+      background: rgba(40, 10, 15, 0.8);
+      border: 1px solid rgba(230, 0, 51, 0.4);
+      box-shadow: 0 0 15px rgba(230, 0, 51, 0.25);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-studio:hover {
+      background: var(--bright-red);
+      box-shadow: 0 0 25px rgba(230, 0, 51, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Settings Button */
+    .settings-toggle {
+      position: absolute;
+      top: 2rem;
+      right: 2.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 20;
+      transition: all 0.3s ease;
+    }
+
+    .settings-toggle:hover {
+      border-color: var(--bright-red);
+      transform: rotate(45deg);
+    }
+
+    /* Floating Controls Card - Music only */
+    .control-card {
+      position: absolute;
+      top: 5.5rem;
+      right: 2.5rem;
+      width: 220px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      padding: 1.3rem 1.2rem 1.2rem;
+      backdrop-filter: blur(20px);
+      z-index: 20;
+      font-size: 0.8rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .control-card.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+    }
+
+    .music-player {
+      text-align: center;
+    }
+
+    .music-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+      font-weight: 700;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.3rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .ctrl-btn {
+      cursor: pointer;
+      color: #8a7c80;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+    }
+
+    .ctrl-btn:hover {
+      color: #fff;
+    }
+
+    .play-btn {
+      width: 36px;
+      height: 36px;
+      background: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #0d0b0d;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+      transition: transform 0.2s;
+      line-height: 0;
+    }
+
+    .play-btn svg {
+      display: block;
+    }
+
+    .play-btn .icon-play {
+      margin-left: 2px; /* optical centering for triangle glyph */
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .volume-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 2px;
+      position: relative;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .volume-level {
+      width: 70%;
+      height: 100%;
+      background: var(--bright-red);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .volume-thumb {
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(230, 0, 51, 0.5);
+      cursor: grab;
+    }
+
+    .volume-thumb:active {
+      cursor: grabbing;
+    }
+
+    /* STUDIO MODAL POPUP */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 2, 3, 0.35);
+      backdrop-filter: blur(30px) saturate(160%);
+      -webkit-backdrop-filter: blur(30px) saturate(160%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .studio-card {
+      background: #0d0b0d;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 2.4rem;
+      width: 100%;
+      max-width: 540px;
+      position: relative;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .studio-card {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.7rem;
+      color: #8a7c80;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: #ffffff;
+    }
+
+    .studio-tag {
+      color: #900c27;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .studio-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 1.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .approach-box {
+      background: rgba(20, 15, 18, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      padding: 1.25rem;
+    }
+
+    /* Grid of 4 Interactive Cards */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .grid-btn {
+      background: linear-gradient(160deg, #0d0a0b, #070506);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.1rem 1.05rem;
+      text-align: left;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      transition: all 0.25s ease;
+    }
+
+    .grid-btn:hover {
+      border-color: rgba(230, 0, 51, 0.55);
+      background: linear-gradient(160deg, #140a0c, #0a0607);
+      box-shadow: 0 8px 22px rgba(230, 0, 51, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .btn-header {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .icon-badge {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 30%, rgba(230, 0, 51, 0.28), rgba(0, 0, 0, 0.55));
+      border: 1px solid rgba(230, 0, 51, 0.4);
+      color: var(--bright-red);
+    }
+
+    .btn-kicker {
+      color: #a89599;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .btn-label {
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* Mobile: stack the studio grid into a single column */
+    @media (max-width: 600px) {
+      .studio-card {
+        padding: 2rem 1.4rem;
+        border-radius: 22px;
+        max-width: 92vw;
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+
+      .studio-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .approach-box {
+        padding: 1rem;
+        border-radius: 16px;
+      }
+
+      .studio-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
+      .grid-btn {
+        padding: 1.05rem 1.15rem;
+        border-radius: 14px;
+      }
+
+      .btn-label {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="top-left-status"></div>
+
+  <div class="hero-container">
+    <div class="sub-url">PhD | Engineer</div>
+    <h1 class="main-title">
+      <span class="first-line">Marsed</span>
+      <span class="second-line">Leti</span>
+    </h1>
+    <p class="hero-desc">
+      Crafting atmosphere-driven indie titles and innovative gameplay mechanics.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-icon" id="btn-linkedin">in</button>
+      <button class="btn-studio" id="btn-studio">Enter</button>
+    </div>
+  </div>
+
+  <div class="settings-toggle" id="toggle-settings">⚙</div>
+
+  <div class="control-card hidden" id="control-card">
+    <div class="music-player">
+      <div class="music-label">MUSIC</div>
+      <div class="player-controls">
+        <span class="ctrl-btn" id="music-prev-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </span>
+        <div class="play-btn" id="music-play-btn">
+          <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <span class="ctrl-btn" id="music-next-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </span>
+      </div>
+      <div class="volume-container" id="volume-bar">
+        <div class="volume-level" id="volume-level">
+          <div class="volume-thumb" id="volume-thumb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="studio-modal">
+    <div class="studio-card">
+      <div class="modal-close" id="modal-close">&times;</div>
+      <div class="studio-tag">ML</div>
+      <h2 class="studio-title">Chose Profiles</h2>
+
+      <div class="approach-box">
+        <div class="studio-grid">
+          <a href="academic/index.html" class="grid-btn">
+            <div class="btn-header">
+              <div class="icon-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3 2 8l10 5 10-5-10-5Z"/>
+                  <path d="M6 10.5v5c0 1 2.5 2.5 6 2.5s6-1.5 6-2.5v-5"/>
+                  <path d="M22 8v6"/>
+                </svg>
+              </div>
+              <span class="btn-kicker">Civil Engineering</span>
+            </div>
+            <div class="btn-label">Academic</div>
+          </a>
+
+          <a href="mlair.pro/index.html" class="grid-btn">
+            <div class="btn-header">
+              <div class="icon-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="7" width="13" height="10" rx="2"/>
+                  <path d="M16 10.5 21 7v10l-5-3.5Z"/>
+                </svg>
+              </div>
+              <span class="btn-kicker">mlair</span>
+            </div>
+            <div class="btn-label">Videography</div>
+          </a>
+
+          <div class="grid-btn">
+            <div class="btn-header">
+              <div class="icon-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="6" width="20" height="12" rx="6"/>
+                  <line x1="6" y1="12" x2="10" y2="12"/>
+                  <line x1="8" y1="10" x2="8" y2="14"/>
+                  <circle cx="15" cy="13" r="0.6" fill="currentColor"/>
+                  <circle cx="18" cy="11" r="0.6" fill="currentColor"/>
+                </svg>
+              </div>
+              <span class="btn-kicker">LojtariFundit</span>
+            </div>
+            <div class="btn-label">Entertainment</div>
+          </div>
+
+          <div class="grid-btn">
+            <div class="btn-header">
+              <div class="icon-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="6" width="12" height="12" rx="1.5"/>
+                  <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>
+                </svg>
+              </div>
+              <span class="btn-kicker">Signals</span>
+            </div>
+            <div class="btn-label">Electronics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Canvas Animated Background ---
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() {
+        this.reset(true);
+      }
+
+      reset(isInitial = false) {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.baseSize = Math.random() * 140 + 90;
+        this.size = isInitial ? this.baseSize : 0;
+        this.targetSize = this.baseSize;
+        
+        this.vx = (Math.random() - 0.5) * 2.2;
+        this.vy = (Math.random() - 0.5) * 2.2;
+        
+        this.baseAlpha = Math.random() * 0.35 + 0.15;
+        this.alpha = isInitial ? this.baseAlpha : 0;
+        this.targetAlpha = this.baseAlpha;
+
+        this.fadeSpeed = 0.005 + Math.random() * 0.01;
+        this.growSpeed = 0.5 + Math.random() * 1.0;
+
+        this.pulseAngle = Math.random() * Math.PI * 2;
+        this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        
+        this.isFadingIn = !isInitial;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.isFadingIn) {
+            if (this.alpha < this.targetAlpha) {
+                this.alpha = Math.min(this.targetAlpha, this.alpha + this.fadeSpeed);
+            }
+            if (this.size < this.targetSize) {
+                this.size = Math.min(this.targetSize, this.size + this.growSpeed);
+            }
+            if (this.alpha >= this.targetAlpha && this.size >= this.targetSize) {
+                this.isFadingIn = false;
+            }
+        }
+
+        if (!this.isFadingIn || this.size > this.targetSize * 0.8) {
+            this.pulseAngle += this.pulseSpeed;
+            const currentBase = this.isFadingIn ? this.size : this.baseSize;
+            this.size = currentBase + Math.sin(this.pulseAngle) * 20 * (this.size / this.targetSize);
+        }
+
+        if (this.x < -120 || this.x > canvas.width + 120 || 
+            this.y < -120 || this.y > canvas.height + 120) {
+          this.reset(false);
+        }
+      }
+
+      draw() {
+        if (this.size <= 0) return;
+
+        const gradient = ctx.createRadialGradient(
+          this.x, this.y, 0,
+          this.x, this.y, Math.max(1, this.size)
+        );
+        gradient.addColorStop(0, `rgba(180, 0, 35, ${this.alpha})`);
+        gradient.addColorStop(1, 'rgba(5, 2, 3, 0)');
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, Math.max(1, this.size), 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    const particles = Array.from({ length: 26 }, () => new Particle());
+
+    function animate() {
+      ctx.fillStyle = '#050203';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // --- Studio Modal Popup Toggle ---
+    const btnStudio = document.getElementById('btn-studio');
+    const studioModal = document.getElementById('studio-modal');
+    const modalClose = document.getElementById('modal-close');
+
+    btnStudio.addEventListener('click', () => {
+      studioModal.classList.add('active');
+    });
+
+    modalClose.addEventListener('click', () => {
+      studioModal.classList.remove('active');
+    });
+
+    studioModal.addEventListener('click', (e) => {
+      if (e.target === studioModal) {
+        studioModal.classList.remove('active');
+      }
+    });
+
+    // --- Audio Player Setup ---
+    const trackUrl = 'https://cyrillic.digital/music/Cyrillic%20Digital-Tambura%20Rainlight.mp3';
+    const audio = new Audio(trackUrl);
+    audio.loop = true;
+    audio.volume = 0.7;
+
+    const playBtn = document.getElementById('music-play-btn');
+    const volumeBar = document.getElementById('volume-bar');
+    const volumeLevel = document.getElementById('volume-level');
+    const volumeThumb = document.getElementById('volume-thumb');
+    const prevBtn = document.getElementById('music-prev-btn');
+    const nextBtn = document.getElementById('music-next-btn');
+
+    const ICON_PLAY = '<svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    const ICON_PAUSE = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          playBtn.innerHTML = ICON_PAUSE;
+        }).catch(err => {
+          console.error("Audio play error:", err);
+        });
+      } else {
+        audio.pause();
+        playBtn.innerHTML = ICON_PLAY;
+      }
+    });
+
+    prevBtn.addEventListener('click', () => { audio.currentTime = 0; });
+    nextBtn.addEventListener('click', () => { audio.currentTime = 0; });
+
+    // --- Volume slider: click + drag support ---
+    function setVolumeFromClientX(clientX) {
+      const rect = volumeBar.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const newVolume = Math.min(Math.max(x / rect.width, 0), 1);
+      audio.volume = newVolume;
+      volumeLevel.style.width = `${newVolume * 100}%`;
+    }
+
+    volumeBar.addEventListener('click', (e) => {
+      setVolumeFromClientX(e.clientX);
+    });
+
+    let isDraggingVolume = false;
+
+    volumeThumb.addEventListener('pointerdown', (e) => {
+      isDraggingVolume = true;
+      volumeThumb.setPointerCapture(e.pointerId);
+      e.stopPropagation();
+    });
+
+    volumeThumb.addEventListener('pointermove', (e) => {
+      if (!isDraggingVolume) return;
+      setVolumeFromClientX(e.clientX);
+    });
+
+    volumeThumb.addEventListener('pointerup', (e) => {
+      isDraggingVolume = false;
+      volumeThumb.releasePointerCapture(e.pointerId);
+    });
+
+    // --- Settings panel visibility ---
+    const settingsToggle = document.getElementById('toggle-settings');
+    const controlCard = document.getElementById('control-card');
+
+    settingsToggle.addEventListener('click', () => {
+      controlCard.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
