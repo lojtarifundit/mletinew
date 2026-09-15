@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course — Marsed Leti</title>
+<title>Courses — Marsed Leti</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -19,22 +19,41 @@
     <div class="nav-links" id="navLinks">
       <a href="../index.html">Home</a>
       <a href="index.html">CV</a>
-      <a href="courses.html">Courses</a>
+      <a href="courses.html" class="active">Courses</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
       <a href="../index.html">Home</a>
       <a href="index.html">CV</a>
-      <a href="courses.html">Courses</a>
+      <a href="courses.html" class="active">Courses</a>
   </div>
 </nav>
 
-<!-- Filled in at load time from the course spreadsheet (assets/courses.js). -->
-<section class="course-page" id="coursePage">
-  <a href="courses.html" class="back-link">&larr; Back to courses</a>
-  <div class="cp-head"><h1>Loading…</h1></div>
-</section>
+<main>
+
+  <section class="section reveal" id="courses-section">
+    <div class="section-head">
+      <h2>Courses</h2>
+      <div>
+        <div class="term-toggle" id="termToggle">
+          <button data-term="fall">Fall</button>
+          <button data-term="spring">Spring</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-grid" id="courseGrid">
+      <a href="examination.html" class="exam-card">
+        <span class="cat-dot"><span class="d"></span>Exam Schedule</span>
+        <h3>Examinations</h3>
+        <div class="desc">Dates, format, and rules for upcoming midterms and finals across all courses.</div>
+        <div class="go">Open examinations <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+    </div>
+  </section>
+
+</main>
 
 <footer>
   <div class="footer-inner">
@@ -52,6 +71,7 @@
 <script src="assets/nav.js"></script>
 <script src="assets/courses.js"></script>
 <script src="assets/course-render.js"></script>
+<script src="assets/home.js"></script>
 <script src="assets/study-widget.js"></script>
 </body>
 </html>

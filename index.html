@@ -383,14 +383,19 @@
 
     .grid-btn {
       background: linear-gradient(160deg, #0d0a0b, #070506);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(230, 0, 51, 0.28);
       border-radius: 16px;
       padding: 1.1rem 1.05rem;
       text-align: left;
       cursor: pointer;
       text-decoration: none;
       display: block;
+      box-shadow: 0 0 0 1px rgba(230, 0, 51, 0.08), 0 0 22px -6px rgba(230, 0, 51, 0.45);
       transition: all 0.25s ease;
+    }
+
+    .grid-btn.wide {
+      grid-column: 1 / -1;
     }
 
     .grid-btn:hover {
@@ -551,7 +556,7 @@
             <div class="btn-label">Videography</div>
           </a>
 
-          <div class="grid-btn">
+          <div class="grid-btn wide" id="lojtariBtn">
             <div class="btn-header">
               <div class="icon-badge">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -565,19 +570,6 @@
               <span class="btn-kicker">LojtariFundit</span>
             </div>
             <div class="btn-label">Entertainment</div>
-          </div>
-
-          <div class="grid-btn">
-            <div class="btn-header">
-              <div class="icon-badge">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="6" y="6" width="12" height="12" rx="1.5"/>
-                  <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>
-                </svg>
-              </div>
-              <span class="btn-kicker">Signals</span>
-            </div>
-            <div class="btn-label">Electronics</div>
           </div>
         </div>
       </div>
@@ -695,6 +687,14 @@
 
     modalClose.addEventListener('click', () => {
       studioModal.classList.remove('active');
+    });
+
+    // Close the popup itself before leaving for a real page, so it's not
+    // left open behind you (or shown open if you hit the browser back button).
+    document.querySelectorAll('.studio-grid a.grid-btn').forEach((link) => {
+      link.addEventListener('click', () => {
+        studioModal.classList.remove('active');
+      });
     });
 
     studioModal.addEventListener('click', (e) => {

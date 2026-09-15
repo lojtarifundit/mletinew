@@ -164,14 +164,14 @@ button{ font-family:inherit; }
 .term-toggle button.active{ background:var(--red); color:#fff; }
 .term-note{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--gray-dim); margin-top:10px; }
 
-.course-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+.course-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
 @media (max-width:940px){ .course-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:640px){ .course-grid{ grid-template-columns:1fr; } }
 
-.course-card{ display:block; text-align:left; width:100%; background:var(--panel); padding:28px 24px 26px; cursor:pointer; text-decoration:none; color:inherit; position:relative; overflow:hidden; transition:background 0.25s; }
+.course-card{ display:block; text-align:left; width:100%; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:28px 24px 26px; cursor:pointer; text-decoration:none; color:inherit; position:relative; overflow:hidden; transition:background 0.25s, border-color 0.25s, transform 0.25s; }
 .course-card::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--red); transform:scaleY(0); transform-origin:top; transition:transform 0.3s cubic-bezier(.2,.8,.2,1); box-shadow:0 0 14px var(--red-glow); }
 .course-card.grad::before{ background:var(--gold); box-shadow:0 0 14px var(--gold-glow); }
-.course-card:hover{ background:#141417; }
+.course-card:hover{ background:#141417; border-color:rgba(255,255,255,0.16); transform:translateY(-2px); }
 .course-card:hover::before{ transform:scaleY(1); }
 .cat-dot{ display:inline-flex; align-items:center; gap:7px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.06em; color:var(--gray-dim); text-transform:uppercase; }
 .cat-dot span.d{ width:6px; height:6px; border-radius:50%; flex:none; background:var(--red); }

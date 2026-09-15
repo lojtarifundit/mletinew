@@ -91,7 +91,7 @@
     if(!course){
       host.innerHTML = '<div class="cp-head"><h1>Course not found</h1></div>'
         + '<p class="cp-desc">This course is not in the current course list. '
-        + '<a href="index.html#courses-section" style="color:var(--red);">Back to all courses</a>.</p>';
+        + '<a href="courses.html" style="color:var(--red);">Back to all courses</a>.</p>';
       document.title = 'Course not found — Marsed Leti';
       return;
     }
@@ -117,7 +117,7 @@
     document.title = course.code + ' — ' + course.name + ' — Marsed Leti';
 
     host.innerHTML =
-        '<a href="index.html#courses-section" class="back-link">&larr; Back to courses</a>'
+        '<a href="courses.html" class="back-link">&larr; Back to courses</a>'
       + '<div class="cp-head">'
       +   '<span class="cat-dot" style="color:' + accent + '">'
       +     '<span class="d" style="background:' + accent + '"></span>' + esc(course.code) + '</span>'
