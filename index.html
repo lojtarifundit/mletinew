@@ -9,12 +9,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #050203;
-      --accent-red: #8b001a;
-      --bright-red: #e60033;
-      --panel-bg: rgba(18, 8, 12, 0.85);
+      --bg-dark: #050505;
+      --accent-soft: #5a5a5e;
+      --accent: #c9c9ce;
+      --panel-bg: rgba(16, 16, 18, 0.85);
       --panel-border: rgba(255, 255, 255, 0.1);
-      --text-muted: #8a7c80;
+      --text-muted: #85858a;
+      --text-secondary: #9b9ba0; /* grey used for "LETI" / secondary headings */
+      --text-tag: #b0b0b4;       /* grey used for small tags/labels that used to be red */
     }
 
     * {
@@ -51,8 +53,8 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: radial-gradient(circle, var(--bright-red) 30%, rgba(230, 0, 51, 0.2) 100%);
-      box-shadow: 0 0 15px var(--bright-red);
+      background: radial-gradient(circle, var(--accent) 30%, rgba(210, 210, 216, 0.2) 100%);
+      box-shadow: 0 0 15px var(--accent);
       z-index: 10;
     }
 
@@ -88,14 +90,14 @@
     }
 
     .main-title .second-line {
-      color: rgba(180, 20, 40, 0.75);
+      color: var(--text-secondary);
       display: block;
     }
 
     .hero-desc {
       margin-top: 2rem;
       font-size: 0.95rem;
-      color: #b0a3a6;
+      color: #a8a8ad;
       line-height: 1.5;
       font-weight: 300;
       max-width: 380px;
@@ -113,7 +115,7 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: rgba(20, 10, 15, 0.6);
+      background: rgba(24, 24, 26, 0.6);
       border: 1px solid var(--panel-border);
       display: flex;
       align-items: center;
@@ -127,17 +129,17 @@
     }
 
     .btn-icon:hover {
-      background: rgba(230, 0, 51, 0.2);
-      border-color: var(--bright-red);
+      background: rgba(210, 210, 216, 0.2);
+      border-color: var(--accent);
       transform: scale(1.05);
     }
 
     .btn-studio {
       padding: 0.85rem 2rem;
       border-radius: 30px;
-      background: rgba(40, 10, 15, 0.8);
-      border: 1px solid rgba(230, 0, 51, 0.4);
-      box-shadow: 0 0 15px rgba(230, 0, 51, 0.25);
+      background: rgba(32, 32, 35, 0.8);
+      border: 1px solid rgba(210, 210, 216, 0.4);
+      box-shadow: 0 0 15px rgba(210, 210, 216, 0.25);
       color: #ffffff;
       text-decoration: none;
       font-size: 0.75rem;
@@ -150,8 +152,9 @@
     }
 
     .btn-studio:hover {
-      background: var(--bright-red);
-      box-shadow: 0 0 25px rgba(230, 0, 51, 0.6);
+      background: rgba(210, 210, 216, 0.16);
+      border-color: rgba(230, 230, 236, 0.75);
+      box-shadow: 0 0 25px rgba(210, 210, 216, 0.6);
       transform: translateY(-2px);
     }
 
@@ -174,7 +177,7 @@
     }
 
     .settings-toggle:hover {
-      border-color: var(--bright-red);
+      border-color: var(--accent);
       transform: rotate(45deg);
     }
 
@@ -183,11 +186,11 @@
       position: absolute;
       top: 5.5rem;
       right: 2.5rem;
-      width: 220px;
+      width: 268px;
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      padding: 1.3rem 1.2rem 1.2rem;
+      border-radius: 24px;
+      padding: 1.25rem 1.25rem 1.35rem;
       backdrop-filter: blur(20px);
       z-index: 20;
       font-size: 0.8rem;
@@ -201,52 +204,116 @@
       transform: translateY(-10px);
     }
 
+    /* ---- Clock ---- */
+    .clock-block {
+      text-align: center;
+      padding-bottom: 1.05rem;
+      margin-bottom: 1.05rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .clock-time {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .clock-time .clock-meridiem {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-left: 0.3rem;
+    }
+
+    .clock-date {
+      margin-top: 0.45rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ---- Music player ---- */
     .music-player {
       text-align: center;
     }
 
     .music-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
       color: var(--text-muted);
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.55rem;
       font-weight: 700;
+    }
+
+    .track-name {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #d2d2d8;
+      margin-bottom: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-height: 1.1em;
     }
 
     .player-controls {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.3rem;
-      margin-bottom: 1.1rem;
+      gap: 0.9rem;
+      margin-bottom: 1.15rem;
     }
 
+    /* transparent glass circles */
     .ctrl-btn {
-      cursor: pointer;
-      color: #8a7c80;
-      transition: color 0.2s;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #c9c9ce;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
       line-height: 0;
+      transition: all 0.25s ease;
     }
 
     .ctrl-btn:hover {
-      color: #fff;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.06);
+    }
+
+    .ctrl-btn:active {
+      transform: scale(0.95);
     }
 
     .play-btn {
-      width: 36px;
-      height: 36px;
-      background: #ffffff;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #0d0b0d;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
-      transition: transform 0.2s;
+      color: #ffffff;
+      box-shadow: 0 0 20px -4px rgba(210, 210, 216, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: all 0.25s ease;
       line-height: 0;
     }
 
@@ -259,13 +326,51 @@
     }
 
     .play-btn:hover {
-      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.45);
+      box-shadow: 0 0 28px -2px rgba(210, 210, 216, 0.55);
+      transform: scale(1.06);
+    }
+
+    .play-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* loading ring on the play button */
+    .play-btn.loading {
+      pointer-events: none;
+      opacity: 0.55;
+    }
+
+    /* ---- Volume row ---- */
+    .volume-row {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 999px;
+      padding: 0.55rem 0.85rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .volume-icon {
+      color: var(--text-muted);
+      flex-shrink: 0;
+      line-height: 0;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .volume-icon:hover {
+      color: #ffffff;
     }
 
     .volume-container {
-      width: 100%;
+      flex: 1;
       height: 4px;
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.14);
       border-radius: 2px;
       position: relative;
       cursor: pointer;
@@ -275,7 +380,7 @@
     .volume-level {
       width: 70%;
       height: 100%;
-      background: var(--bright-red);
+      background: linear-gradient(90deg, rgba(210, 210, 216, 0.55), #ffffff);
       border-radius: 2px;
       position: relative;
     }
@@ -285,11 +390,11 @@
       right: -6px;
       top: 50%;
       transform: translateY(-50%);
-      width: 12px;
-      height: 12px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
       background: #ffffff;
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(230, 0, 51, 0.5);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.35);
       cursor: grab;
     }
 
@@ -297,11 +402,12 @@
       cursor: grabbing;
     }
 
+
     /* STUDIO MODAL POPUP */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(5, 2, 3, 0.35);
+      background: rgba(5, 5, 5, 0.35);
       backdrop-filter: blur(30px) saturate(160%);
       -webkit-backdrop-filter: blur(30px) saturate(160%);
       display: flex;
@@ -319,7 +425,7 @@
     }
 
     .studio-card {
-      background: #0d0b0d;
+      background: #0d0d0f;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 24px;
       padding: 2.4rem;
@@ -339,7 +445,7 @@
       position: absolute;
       top: 1.5rem;
       right: 1.7rem;
-      color: #8a7c80;
+      color: #85858a;
       font-size: 1.5rem;
       cursor: pointer;
       transition: color 0.2s;
@@ -350,7 +456,7 @@
     }
 
     .studio-tag {
-      color: #900c27;
+      color: var(--text-tag);
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.25em;
@@ -368,7 +474,7 @@
     }
 
     .approach-box {
-      background: rgba(20, 15, 18, 0.8);
+      background: rgba(20, 20, 22, 0.8);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 18px;
       padding: 1.25rem;
@@ -382,15 +488,15 @@
     }
 
     .grid-btn {
-      background: linear-gradient(160deg, #0d0a0b, #070506);
-      border: 1px solid rgba(230, 0, 51, 0.28);
+      background: linear-gradient(160deg, #0d0d0e, #070707);
+      border: 1px solid rgba(210, 210, 216, 0.28);
       border-radius: 16px;
       padding: 1.1rem 1.05rem;
       text-align: left;
       cursor: pointer;
       text-decoration: none;
       display: block;
-      box-shadow: 0 0 0 1px rgba(230, 0, 51, 0.08), 0 0 22px -6px rgba(230, 0, 51, 0.45);
+      box-shadow: 0 0 0 1px rgba(210, 210, 216, 0.08), 0 0 22px -6px rgba(210, 210, 216, 0.45);
       transition: all 0.25s ease;
     }
 
@@ -399,9 +505,9 @@
     }
 
     .grid-btn:hover {
-      border-color: rgba(230, 0, 51, 0.55);
-      background: linear-gradient(160deg, #140a0c, #0a0607);
-      box-shadow: 0 8px 22px rgba(230, 0, 51, 0.15);
+      border-color: rgba(210, 210, 216, 0.55);
+      background: linear-gradient(160deg, #16161a, #0a0a0b);
+      box-shadow: 0 8px 22px rgba(210, 210, 216, 0.15);
       transform: translateY(-3px);
     }
 
@@ -420,13 +526,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at 30% 30%, rgba(230, 0, 51, 0.28), rgba(0, 0, 0, 0.55));
-      border: 1px solid rgba(230, 0, 51, 0.4);
-      color: var(--bright-red);
+      background: radial-gradient(circle at 30% 30%, rgba(210, 210, 216, 0.28), rgba(0, 0, 0, 0.55));
+      border: 1px solid rgba(210, 210, 216, 0.4);
+      color: var(--accent);
     }
 
     .btn-kicker {
-      color: #a89599;
+      color: #9a9a9f;
       font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.15em;
@@ -500,22 +606,34 @@
   <div class="settings-toggle" id="toggle-settings">⚙</div>
 
   <div class="control-card hidden" id="control-card">
+
+    <div class="clock-block">
+      <div class="clock-time" id="clock-time">--:--</div>
+      <div class="clock-date" id="clock-date">&nbsp;</div>
+    </div>
+
     <div class="music-player">
       <div class="music-label">MUSIC</div>
+      <div class="track-name" id="track-name">Loading playlist…</div>
       <div class="player-controls">
-        <span class="ctrl-btn" id="music-prev-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-        </span>
-        <div class="play-btn" id="music-play-btn">
-          <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <div class="ctrl-btn" id="music-prev-btn" title="Previous track">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
         </div>
-        <span class="ctrl-btn" id="music-next-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-        </span>
+        <div class="play-btn" id="music-play-btn" title="Play / pause">
+          <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="ctrl-btn" id="music-next-btn" title="Next track">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </div>
       </div>
-      <div class="volume-container" id="volume-bar">
-        <div class="volume-level" id="volume-level">
-          <div class="volume-thumb" id="volume-thumb"></div>
+      <div class="volume-row">
+        <span class="volume-icon" id="volume-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
+        </span>
+        <div class="volume-container" id="volume-bar">
+          <div class="volume-level" id="volume-level">
+            <div class="volume-thumb" id="volume-thumb"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -651,8 +769,8 @@
           this.x, this.y, 0,
           this.x, this.y, Math.max(1, this.size)
         );
-        gradient.addColorStop(0, `rgba(180, 0, 35, ${this.alpha})`);
-        gradient.addColorStop(1, 'rgba(5, 2, 3, 0)');
+        gradient.addColorStop(0, `rgba(170, 170, 178, ${this.alpha})`);
+        gradient.addColorStop(1, 'rgba(5, 5, 5, 0)');
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -664,7 +782,7 @@
     const particles = Array.from({ length: 26 }, () => new Particle());
 
     function animate() {
-      ctx.fillStyle = '#050203';
+      ctx.fillStyle = '#050505';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach(p => {
@@ -703,49 +821,182 @@
       }
     });
 
+    // --- Live clock (date + time) ---
+    const clockTimeEl = document.getElementById('clock-time');
+    const clockDateEl = document.getElementById('clock-date');
+
+    function updateClock() {
+      const now = new Date();
+      let h = now.getHours();
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const meridiem = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      clockTimeEl.innerHTML = `${h}:${m}<span class="clock-meridiem">${meridiem}</span>`;
+      clockDateEl.textContent = now.toLocaleDateString(undefined, {
+        weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+      });
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
     // --- Audio Player Setup ---
-    const trackUrl = 'https://cyrillic.digital/music/Cyrillic%20Digital-Tambura%20Rainlight.mp3';
-    const audio = new Audio(trackUrl);
-    audio.loop = true;
+    // Playlist lives in the repo folder below. The track list is pulled from the
+    // GitHub API at runtime, so dropping a new song into the folder is enough —
+    // no code change needed, and every file in the folder gets played.
+    const GH_OWNER  = 'lojtarifundit';
+    const GH_REPO   = 'mletinew';
+    const GH_BRANCH = 'main';
+    const GH_FOLDER = 'Music Webi';
+
+    // Optional manual override. If you ever want to pin an exact order, list the
+    // file names here (e.g. ['song-a.mp3', 'song-b.mp3']) and the API is skipped.
+    const MANUAL_PLAYLIST = [];
+
+    const AUDIO_EXT = /\.(mp3|m4a|aac|ogg|oga|opus|wav|flac|webm)$/i;
+
+    const audio = new Audio();
+    audio.preload = 'metadata';
     audio.volume = 0.7;
 
-    const playBtn = document.getElementById('music-play-btn');
-    const volumeBar = document.getElementById('volume-bar');
+    let playlist = [];       // [{ name, url }]
+    let currentIndex = 0;
+    let playlistReady = false;
+    let wantsToPlay = false; // user pressed play before the list finished loading
+
+    const playBtn    = document.getElementById('music-play-btn');
+    const volumeBar  = document.getElementById('volume-bar');
     const volumeLevel = document.getElementById('volume-level');
     const volumeThumb = document.getElementById('volume-thumb');
-    const prevBtn = document.getElementById('music-prev-btn');
-    const nextBtn = document.getElementById('music-next-btn');
+    const volumeIcon = document.getElementById('volume-icon');
+    const prevBtn    = document.getElementById('music-prev-btn');
+    const nextBtn    = document.getElementById('music-next-btn');
+    const trackNameEl = document.getElementById('track-name');
 
-    const ICON_PLAY = '<svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-    const ICON_PAUSE = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+    const ICON_PLAY  = '<svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    const ICON_PAUSE = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+
+    function prettyName(fileName) {
+      return decodeURIComponent(fileName)
+        .replace(AUDIO_EXT, '')
+        .replace(/[_]+/g, ' ')
+        .trim();
+    }
+
+    function rawUrl(fileName) {
+      return `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/` +
+             `${encodeURIComponent(GH_FOLDER)}/${encodeURIComponent(fileName)}`;
+    }
+
+    async function loadPlaylist() {
+      if (MANUAL_PLAYLIST.length) {
+        playlist = MANUAL_PLAYLIST.map(f => ({ name: prettyName(f), url: rawUrl(f) }));
+      } else {
+        const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/` +
+                    `${encodeURIComponent(GH_FOLDER)}?ref=${GH_BRANCH}`;
+        try {
+          const res = await fetch(api);
+          if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+          const files = await res.json();
+          playlist = files
+            .filter(f => f.type === 'file' && AUDIO_EXT.test(f.name))
+            .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
+            .map(f => ({ name: prettyName(f.name), url: f.download_url || rawUrl(f.name) }));
+        } catch (err) {
+          console.error('Could not load playlist:', err);
+          trackNameEl.textContent = 'Playlist unavailable';
+          playBtn.classList.remove('loading');
+          return;
+        }
+      }
+
+      if (!playlist.length) {
+        trackNameEl.textContent = 'No tracks found';
+        playBtn.classList.remove('loading');
+        return;
+      }
+
+      playlistReady = true;
+      playBtn.classList.remove('loading');
+      loadTrack(0, wantsToPlay);
+    }
+
+    function loadTrack(index, autoplay) {
+      if (!playlist.length) return;
+      currentIndex = (index + playlist.length) % playlist.length;
+      const track = playlist[currentIndex];
+      audio.src = track.url;
+      trackNameEl.textContent = `${currentIndex + 1}/${playlist.length} · ${track.name}`;
+      trackNameEl.title = track.name;
+      if (autoplay) play();
+    }
+
+    function play() {
+      audio.play()
+        .then(() => { playBtn.innerHTML = ICON_PAUSE; })
+        .catch(err => {
+          console.error('Audio play error:', err);
+          playBtn.innerHTML = ICON_PLAY;
+        });
+    }
+
+    function pause() {
+      audio.pause();
+      playBtn.innerHTML = ICON_PLAY;
+    }
+
+    playBtn.classList.add('loading');
+    loadPlaylist();
 
     playBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play().then(() => {
-          playBtn.innerHTML = ICON_PAUSE;
-        }).catch(err => {
-          console.error("Audio play error:", err);
-        });
+      if (!playlistReady) { wantsToPlay = true; return; }
+      if (audio.paused) play(); else pause();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (!playlistReady) return;
+      loadTrack(currentIndex + 1, !audio.paused || audio.currentTime > 0);
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (!playlistReady) return;
+      // Tapping back mid-song restarts it first, like a normal player.
+      if (audio.currentTime > 3) {
+        audio.currentTime = 0;
       } else {
-        audio.pause();
-        playBtn.innerHTML = ICON_PLAY;
+        loadTrack(currentIndex - 1, !audio.paused || audio.currentTime > 0);
       }
     });
 
-    prevBtn.addEventListener('click', () => { audio.currentTime = 0; });
-    nextBtn.addEventListener('click', () => { audio.currentTime = 0; });
+    // Rolls straight into the next file, and wraps around at the end so the
+    // whole folder keeps cycling.
+    audio.addEventListener('ended', () => loadTrack(currentIndex + 1, true));
 
-    // --- Volume slider: click + drag support ---
-    function setVolumeFromClientX(clientX) {
-      const rect = volumeBar.getBoundingClientRect();
-      const x = clientX - rect.left;
-      const newVolume = Math.min(Math.max(x / rect.width, 0), 1);
-      audio.volume = newVolume;
-      volumeLevel.style.width = `${newVolume * 100}%`;
+    // If one file is missing or unplayable, skip past it instead of stalling.
+    audio.addEventListener('error', () => {
+      if (!playlistReady || playlist.length < 2) return;
+      console.warn('Skipping unplayable track:', playlist[currentIndex]?.name);
+      loadTrack(currentIndex + 1, true);
+    });
+
+    // --- Volume: click, drag, and mute toggle ---
+    let lastVolume = 0.7;
+
+    function applyVolume(v) {
+      audio.volume = v;
+      volumeLevel.style.width = `${v * 100}%`;
     }
 
-    volumeBar.addEventListener('click', (e) => {
-      setVolumeFromClientX(e.clientX);
+    function setVolumeFromClientX(clientX) {
+      const rect = volumeBar.getBoundingClientRect();
+      const newVolume = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
+      applyVolume(newVolume);
+      if (newVolume > 0) lastVolume = newVolume;
+    }
+
+    volumeBar.addEventListener('click', (e) => setVolumeFromClientX(e.clientX));
+
+    volumeIcon.addEventListener('click', () => {
+      applyVolume(audio.volume > 0 ? 0 : (lastVolume || 0.7));
     });
 
     let isDraggingVolume = false;
