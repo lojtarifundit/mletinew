@@ -133,8 +133,7 @@
       +     linkCard('Lecture slides, problem sets, and readings for ' + esc(course.code)
                      + ' are kept in a shared Google Drive folder.',
                      course.folder, 'Open materials', accent, grad)
-      +     linkCard('The official syllabus, learning outcomes, and weekly plan are published on Epoka EIS.',
-                     course.syllabus, 'Open syllabus', accent, grad)
+
       +     '<div class="side-fact"><div class="k">CONTACT</div><div class="v">'
       +     '<a href="mailto:mleti@epoka.edu.al" style="color:var(--red);">mleti@epoka.edu.al</a></div></div>'
       +   '</div>'
